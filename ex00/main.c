@@ -6,21 +6,11 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:34:40 by gachalif          #+#    #+#             */
-/*   Updated: 2024/01/21 15:37:55 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/01/21 16:13:09 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int	ft_error(void)
 {
@@ -67,8 +57,6 @@ int	main(int argC, char **argV)
 {
 	int		**grid_view;
 	int		**solution;
-	int		i;
-	char	int_to_char;
 
 	if (argC != 2 || !ft_check_input(argV[1]))
 		return (ft_error());
@@ -79,15 +67,7 @@ int	main(int argC, char **argV)
 	solution = ft_generate_solution(grid_view);
 	if (!solution)
 		return (ft_error());
-	i = 0;
-	while (i < 16)
-	{
-		int_to_char = solution[i / 4][i % 4] + 48;
-		write(1, &int_to_char, 1);
-		if (i % 4 == 3)
-			write(1, "\n", 1);
-		else
-			write(1, " ", 1);
-		i++;
-	}
+	ft_write_grid(solution);
+	ft_free_tab(grid_view, 4);
+	ft_free_tab(solution, 4);
 }

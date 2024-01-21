@@ -6,7 +6,7 @@
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:55:55 by gachalif          #+#    #+#             */
-/*   Updated: 2024/01/21 14:26:03 by gachalif         ###   ########.fr       */
+/*   Updated: 2024/01/21 16:11:01 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,17 @@ int	**ft_generate_tab(int len)
 
 void	ft_place_grid(int **grid, int **combs, int i)
 {
-	grid[0] = combs[i / 13824];
-	grid[1] = combs[(i / 576) % 24];
-	grid[2] = combs[(i / 24) % 24];
-	grid[3] = combs[i % 24];
+	int	index;
+
+	index = 0;
+	while (index < 16)
+	{
+		grid[0][index % 4] = combs[i / 13824][index % 4];
+		grid[1][index % 4] = combs[(i / 576) % 24][index % 4];
+		grid[2][index % 4] = combs[(i / 24) % 24][index % 4];
+		grid[3][index % 4] = combs[i % 24][index % 4];
+		index++;
+	}
 }
 
 int	**ft_generate_solution(int **grid_view)
@@ -70,7 +77,10 @@ int	**ft_generate_solution(int **grid_view)
 	{
 		ft_place_grid(grid, combs, i);
 		if (c_grid(grid, grid_view))
+		{
+			ft_free_tab(combs, 24);
 			return (grid);
+		}
 		i++;
 	}
 	return (NULL);

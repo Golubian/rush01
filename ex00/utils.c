@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush01.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gachalif <gachalif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 11:27:53 by gachalif          #+#    #+#             */
-/*   Updated: 2024/01/21 15:56:27 by gachalif         ###   ########.fr       */
+/*   Created: 2024/01/21 15:49:18 by gachalif          #+#    #+#             */
+/*   Updated: 2024/01/21 16:07:16 by gachalif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RUSH01_H
-# define RUSH01_H
+#include "rush01.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+int	ft_strlen(char *str)
+{
+	int	i;
 
-int		c_grid(int **g, int **gv);
-int		ft_strlen(char *str);
-void	ft_write_grid(int **grid);
-void	ft_all_comb_generation(int **all_comb, int nb_lc);
-void	ft_free_tab(int **grid, int len);
-int		**ft_generate_tab(int len);
-int		**ft_generate_solution(int **grid_view);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
-#endif
+void	ft_write_grid(int **grid)
+{
+	int		i;
+	char	int_to_char;
+
+	i = 0;
+	while (i < 16)
+	{
+		int_to_char = grid[i / 4][i % 4] + 48;
+		write(1, &int_to_char, 1);
+		if (i % 4 == 3)
+			write(1, "\n", 1);
+		else
+			write(1, " ", 1);
+		i++;
+	}
+}
